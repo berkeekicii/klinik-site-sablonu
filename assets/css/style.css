@@ -45,6 +45,8 @@ section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
 /* Hero */
 .hero { padding: clamp(3.5rem, 9vw, 7rem) 0; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 35%, var(--bg)), var(--bg)); background-size: cover; background-position: center; }
 .hero.has-img { color: #fff; background-blend-mode: multiply; }
+.hero.has-img .btn.ghost { color: #fff; border-color: #fff; }
+.hero.has-img .btn.ghost:hover { background: #fff; color: var(--primary-dark); }
 .hero .inner { max-width: 640px; }
 .hero p.lead { font-size: 1.15rem; color: var(--muted); }
 .hero.has-img p.lead { color: rgba(255,255,255,.9); }
@@ -126,3 +128,5 @@ input:focus, textarea:focus, select:focus { outline: 2px solid var(--primary); o
 .cookie { position: fixed; left: 1rem; right: 1rem; bottom: 1rem; max-width: 520px; background: var(--surface); padding: 1rem 1.2rem; border-radius: var(--radius); box-shadow: 0 8px 30px rgba(0,0,0,.2); z-index: 70; font-size: .9rem; }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+.hero.has-img .eyebrow { color: var(--accent); }
+section[id] { scroll-margin-top: 76px; }

@@ -89,7 +89,7 @@
   var H = C.hero || {}, html = "";
 
   html += '<section class="hero' + (H.image ? " has-img" : "") + '"' +
-    (H.image ? ' style="background-image:linear-gradient(rgba(30,20,16,.55),rgba(30,20,16,.55)),url(\'' + esc(H.image) + '\')"' : "") +
+    (H.image ? ' style="background-image:linear-gradient(rgba(30,20,16,.25),rgba(30,20,16,.25)),url(\'' + esc(H.image) + '\')"' : "") +
     '><div class="container"><div class="inner">' +
     (H.eyebrow ? '<div class="eyebrow">' + esc(H.eyebrow) + "</div>" : "") +
     "<h1>" + esc(H.title) + "</h1><p class=\"lead\">" + esc(H.subtitle) + "</p>" +
@@ -116,7 +116,7 @@
         : "") +
       '<div class="cards" id="tCards">' +
       items.map(function (i, idx) {
-        return '<article class="card" data-cat="' + esc(i.category) + '"><span class="tag">' + esc(i.category) + "</span><h3>" +
+        return '<article class="card" data-cat="' + esc(i.category) + '">' + (i.image ? '<img loading="lazy" src="' + esc(i.image) + '" alt="' + esc(i.name) + '" style="border-radius:12px;margin-bottom:1rem;aspect-ratio:3/2;object-fit:cover;width:100%">' : "") + '<span class="tag">' + esc(i.category) + "</span><h3>" +
           esc(i.name) + "</h3><p>" + esc(i.short) + '</p><button class="link" data-t="' + idx + '">Detaylar →</button></article>';
       }).join("") + "</div></div></section>";
   }
@@ -129,7 +129,7 @@
   }
 
   if (on("doctors") && C.doctors && (C.doctors.items || []).length) {
-    html += '<section id="hekimler"><div class="container"><h2>' + esc(C.doctors.title) + '</h2><div class="cards">' +
+    html += '<section id="hekimler"><div class="container"><h2>' + esc(C.doctors.title) + '</h2><div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(340px,1fr))">' +
       C.doctors.items.map(function (d) {
         var initials = String(d.name).replace(/^(Uzm\.|Dr\.|Op\.|Prof\.|Doç\.|\s)+/gi, "").trim().charAt(0);
         return '<div class="card doc">' +
@@ -243,7 +243,10 @@
         var text = "Merhaba, ben " + d.get("name") + ".\nTelefon: " + d.get("phone") +
           (d.get("treatment") ? "\nUygulama: " + d.get("treatment") : "") + (d.get("message") ? "\nMesaj: " + d.get("message") : "");
         var link = waLink(text);
-        if (link) window.open(link, "_blank", "noopener"); else msg.textContent = "WhatsApp numarası tanımlı değil.";
+        if (link) {
+          msg.innerHTML = 'Mesajınız hazır: <a href="' + esc(link) + '" target="_blank" rel="noopener"><strong>WhatsApp\'ta göndermek için tıklayın</strong></a>';
+          try { window.open(link, "_blank", "noopener"); } catch (x) {}
+        } else msg.textContent = "WhatsApp numarası tanımlı değil.";
       }
     });
   }
